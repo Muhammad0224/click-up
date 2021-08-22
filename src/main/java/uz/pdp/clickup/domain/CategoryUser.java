@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import uz.pdp.clickup.domain.templ.AbsLongEntity;
+import uz.pdp.clickup.enums.WorkspacePermissionName;
 
 import javax.persistence.*;
 
@@ -13,12 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EntityListeners(value = AuditingEntityListener.class)
-public class CategoryUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class CategoryUser extends AbsLongEntity {
     @Column(nullable = false)
     private String name;
 
@@ -28,6 +25,6 @@ public class CategoryUser {
     @ManyToOne
     private Category category;
 
-    @ManyToOne
-    private Permission permission;
+    @Enumerated(EnumType.STRING)
+    private WorkspacePermissionName permission;
 }

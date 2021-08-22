@@ -1,27 +1,21 @@
 package uz.pdp.clickup.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import uz.pdp.clickup.domain.templ.GenericEntity;
+import lombok.*;
+import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
+import uz.pdp.clickup.enums.WorkspacePermissionName;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@EntityListeners(value = AuditingEntityListener.class)
-public class WorkspacePermission extends GenericEntity {
-    @ManyToOne
-    private WorkspaceRole workspaceRole;
+public class WorkspacePermission extends AbsUUIDEntity {
 
-    @ManyToOne
-    private Permission permission;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private WorkspaceRole workspaceRole;//O'RINBOSAR
+
+    @Enumerated(EnumType.STRING)
+    private WorkspacePermissionName permission;//add member,remove member
 }

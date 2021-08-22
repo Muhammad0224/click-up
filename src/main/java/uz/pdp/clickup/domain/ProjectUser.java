@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
+import uz.pdp.clickup.enums.WorkspacePermissionName;
 
 import javax.persistence.*;
 
@@ -13,18 +15,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EntityListeners(value = AuditingEntityListener.class)
-public class ProjectUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class ProjectUser extends AbsUUIDEntity {
     @ManyToOne
     private User owner;
 
     @ManyToOne
     private Project project;
 
-    @ManyToOne
-    private Permission permission;
+    @Enumerated(EnumType.STRING)
+    private WorkspacePermissionName permission;
 }

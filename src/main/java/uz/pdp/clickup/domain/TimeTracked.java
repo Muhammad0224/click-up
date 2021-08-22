@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import uz.pdp.clickup.domain.templ.GenericEntity;
+import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +18,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EntityListeners(value = AuditingEntityListener.class)
-public class TimeTracked extends GenericEntity {
+public class TimeTracked extends AbsUUIDEntity {
     @Column(nullable = false)
     private String name;
 

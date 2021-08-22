@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import uz.pdp.clickup.domain.templ.GenericEntity;
+import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
 import uz.pdp.clickup.enums.StatusType;
 
 import javax.persistence.*;
@@ -15,8 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EntityListeners(value = AuditingEntityListener.class)
-public class Status extends GenericEntity {
+public class Status extends AbsUUIDEntity {
     @Column(nullable = false)
     private String name;
 

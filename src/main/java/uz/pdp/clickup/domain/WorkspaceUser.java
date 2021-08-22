@@ -1,37 +1,33 @@
 package uz.pdp.clickup.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import uz.pdp.clickup.domain.templ.GenericEntity;
+
+import lombok.*;
+import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@EntityListeners(value = AuditingEntityListener.class)
-public class WorkspaceUser extends GenericEntity {
-    @ManyToOne
+public class WorkspaceUser extends AbsUUIDEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Workspace workspace;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private WorkspaceRole workspaceRole;
 
-    @CreationTimestamp
-    private Timestamp invitedDate;
+    @Column(nullable = false)
+    private Timestamp dateInvited;
 
-    private Timestamp joinedDate;
+    private Timestamp dateJoined;
 }

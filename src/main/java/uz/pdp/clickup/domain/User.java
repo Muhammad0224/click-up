@@ -1,40 +1,88 @@
 package uz.pdp.clickup.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import uz.pdp.clickup.domain.templ.GenericEntity;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
+import uz.pdp.clickup.enums.SystemRoleName;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "users")
-@EntityListeners(value = AuditingEntityListener.class)
-public class User extends GenericEntity {
-    @Column(nullable = false)
+public class User extends AbsUUIDEntity implements UserDetails {
+
     private String fullName;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private String color;
 
-    @Column
     private String initialLetter;
 
-    @OneToOne
+    @PrePersist
+    @PreUpdate
+    public void setInitialLetterMyMethod() {
+        this.initialLetter = fullName.substring(0, 1);
+    }
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Attachment avatar;
 
-    @ManyToMany
-    private List<Role> roles;
+    private boolean enabled;
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
+
+    @Enumerated(EnumType.STRING)
+    private SystemRoleName systemRoleName;
+
+    private String emailCode;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(this.systemRoleName.name());
+        return Collections.singletonList(simpleGrantedAuthority);
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return this.accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return this.credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public User(String fullName, String email, String password, SystemRoleName systemRoleName) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.systemRoleName = systemRoleName;
+    }
 }

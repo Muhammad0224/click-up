@@ -1,38 +1,34 @@
 package uz.pdp.clickup.domain.templ;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uz.pdp.clickup.domain.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Setter
-@Getter
+@Data
 @MappedSuperclass
-public abstract class GenericEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@EntityListeners(AuditingEntityListener.class)
+public abstract class AbsMainEntity {
 
-    @CreationTimestamp
     @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     private Timestamp createdAt;
 
     @UpdateTimestamp
-    @Column(nullable = false)
     private Timestamp updatedAt;
 
-    @CreatedBy
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @CreatedBy
     private User createdBy;
 
-    @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
+    @LastModifiedBy
     private User updatedBy;
 }
