@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Entity
 public class ProjectUser extends AbsUUIDEntity {
     @ManyToOne
-    private User owner;
+    private User member;
 
     @ManyToOne
     private Project project;

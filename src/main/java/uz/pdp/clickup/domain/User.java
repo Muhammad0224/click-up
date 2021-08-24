@@ -3,6 +3,7 @@ package uz.pdp.clickup.domain;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
 import uz.pdp.clickup.enums.SystemRoleName;
@@ -84,5 +85,9 @@ public class User extends AbsUUIDEntity implements UserDetails {
         this.email = email;
         this.password = password;
         this.systemRoleName = systemRoleName;
+    }
+
+    public static User getCurrentUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

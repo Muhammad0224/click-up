@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class SpaceUser extends AbsUUIDEntity {
 
     @ManyToOne
-    private User owner;
+    private User member;
 
     @ManyToOne
     private Space space;

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uz.pdp.clickup.domain.templ.AbsLongEntity;
+import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
 
 import javax.persistence.*;
 
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class SpaceClickApps extends AbsLongEntity {
+public class SpaceClickApps extends AbsUUIDEntity {
 
     @ManyToOne
     private ClickApps clickApps;

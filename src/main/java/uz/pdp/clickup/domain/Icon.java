@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import uz.pdp.clickup.domain.templ.AbsLongEntity;
 import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Icon extends AbsUUIDEntity {
+public class Icon extends AbsLongEntity {
     @Column(nullable = false)
     private String name;
 

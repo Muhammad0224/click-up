@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -18,15 +19,18 @@ public class Category extends AbsUUIDEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String color;
-
     @ManyToOne
     private Project project;
 
     @Column
-    private boolean archived;
+    private boolean archived = false;
 
-    @Enumerated(EnumType.STRING)
-    private AccessType accessType;
+    @Transient
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
+    private List<Status> statuses;
+
+    public Category(String name, Project project) {
+        this.name = name;
+        this.project = project;
+    }
 }

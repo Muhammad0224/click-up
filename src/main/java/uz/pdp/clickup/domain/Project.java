@@ -4,16 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
+import uz.pdp.clickup.enums.AccessType;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name", "space_id"}))
 public class Project extends AbsUUIDEntity {
     @Column(nullable = false)
     private String name;
@@ -25,8 +27,11 @@ public class Project extends AbsUUIDEntity {
     private Space space;
 
     @Column
-    private boolean archived;
+    private boolean archived = false;
 
     @Enumerated(EnumType.STRING)
     private AccessType accessType;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST)
+    private List<Category> categories;
 }
