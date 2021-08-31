@@ -196,6 +196,21 @@ public class SpaceServiceImpl implements SpaceService {
         return new ApiResponse("Deleted", true);
     }
 
+    @Override
+    public ApiResponse getViewBySpace(UUID id) {
+        Optional<Space> optionalSpace = spaceRepo.findById(id);
+        if (!optionalSpace.isPresent()) {
+            return new ApiResponse("Space not found", false);
+        }
+        Space space = optionalSpace.get();
+        List<SpaceView> spaceViews = spaceViewRepo.findAllBySpaceId(space.getId());
+        List<View> views = new ArrayList<>();
+        for (SpaceView spaceView : spaceViews) {
+            views.add(spaceView.getView());
+        }
+        return new ApiResponse("OK", true, mapper.toViewDto(views));
+    }
+
     private void editMembers(Space space, List<UUID> members, String operation) {
         List<SpaceUser> spaceUsers = spaceUserRepo.findAllBySpaceId(space.getId());
         if (operation.equals("SAVE")) {

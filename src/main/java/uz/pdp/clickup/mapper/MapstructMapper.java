@@ -91,4 +91,27 @@ public interface MapstructMapper {
 
     List<TagRespDto> toTagDto(List<Tag> tags);
 
+    /**
+     * Checklist
+     */
+    @Mapping(source = "task.id", target = "taskId")
+    ChecklistRespDto toChecklistDto(CheckList checkList);
+
+    List<ChecklistRespDto> toChecklistDto(List<CheckList> checkLists);
+
+    /**
+     * Checklist ite
+     */
+    @Mapping(source = "checkList.id", target = "checklistId")
+    ChecklistItemRespDto toItemDto(CheckListItem item);
+
+    List<ChecklistItemRespDto> toItemDto(List<CheckListItem> items);
+
+    /**
+     * View
+     */
+    @Mapping(source = "icon.id", target = "iconId")
+    ViewRespDto toViewDto(View view);
+
+    List<ViewRespDto> toViewDto(List<View> views);
 }

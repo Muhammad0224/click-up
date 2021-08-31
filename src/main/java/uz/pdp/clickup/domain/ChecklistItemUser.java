@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uz.pdp.clickup.domain.templ.AbsUUIDEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.ManyToOne;
 
 @Setter
@@ -17,15 +15,10 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class CheckListItem extends AbsUUIDEntity {
-    @Column(nullable = false)
-    private String name;
+public class ChecklistItemUser extends AbsUUIDEntity {
+    @ManyToOne
+    private CheckListItem checkListItem;
 
     @ManyToOne
-    private CheckList checkList;
-
-    @Column
-    private boolean resolved = false;
+    private User user;
 }
-
-

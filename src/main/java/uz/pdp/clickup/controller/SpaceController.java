@@ -47,6 +47,12 @@ public class SpaceController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @GetMapping("/views/{id}")
+    public ResponseEntity<?> getViewBySpace(@PathVariable UUID id) {
+        ApiResponse apiResponse = spaceService.getViewBySpace(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
     @PutMapping("/{id}/attach/views")
     public ResponseEntity<?> attachViews(@Valid @RequestBody AttachViewsDto dto, @PathVariable UUID id) {
         ApiResponse apiResponse = spaceService.attachViews(dto, id);

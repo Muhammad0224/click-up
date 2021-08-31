@@ -27,4 +27,6 @@ public interface SpaceService {
     ApiResponse detachClickApp(AttachClickAppDto dto, UUID id);
 
     ApiResponse delete(UUID id);
+
+    ApiResponse getViewBySpace(UUID id);
 }
