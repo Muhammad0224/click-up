@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Comment extends AbsUUIDEntity {
     @Column(nullable = false)
-    private String name;
+    private String text;
 
     @ManyToOne
     private Task task;

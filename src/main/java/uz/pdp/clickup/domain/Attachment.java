@@ -21,4 +21,5 @@ public class Attachment extends AbsUUIDEntity {
 
     private String contentType;
 
+    private String path;
 }

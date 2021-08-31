@@ -3,12 +3,9 @@ package uz.pdp.clickup.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
-import uz.pdp.clickup.domain.Space;
-import uz.pdp.clickup.domain.User;
-import uz.pdp.clickup.domain.Workspace;
-import uz.pdp.clickup.payload.resp.SpaceRespDto;
-import uz.pdp.clickup.payload.resp.UserRespDto;
-import uz.pdp.clickup.payload.resp.WorkspaceRespDto;
+import uz.pdp.clickup.domain.*;
+import uz.pdp.clickup.payload.CommentDto;
+import uz.pdp.clickup.payload.resp.*;
 
 import java.util.List;
 
@@ -44,4 +41,54 @@ public interface MapstructMapper {
     SpaceRespDto toSpaceDto(Space space);
 
     List<SpaceRespDto> toSpaceDto(List<Space> space);
+
+    /**
+     * Category
+     */
+
+    @Mapping(source = "project.id", target = "project")
+    CategoryRespDto toCategoryDto(Category category);
+
+    List<CategoryRespDto> toCategoryDto(List<Category> categories);
+
+    /**
+     * Status
+     */
+
+    @Mapping(source = "space.id", target = "spaceId")
+    @Mapping(source = "project.id", target = "projectId")
+    @Mapping(source = "category.id", target = "categoryId")
+    StatusRespDto toStatusDto(Status status);
+
+    List<StatusRespDto> toStatusDto(List<Status> statuses);
+
+    /**
+     * Task
+     */
+
+    @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "task.id", target = "parentId")
+    @Mapping(source = "priority.id", target = "priorityId")
+    TaskRespDto toTaskDto(Task task);
+
+    List<TaskRespDto> toTaskDto(List<Task> tasks);
+
+    /**
+     * Comment
+     */
+
+    @Mapping(source = "task.id", target = "taskId")
+    @Mapping(source = "createdBy.id", target = "createdBy")
+    CommentRespDto toCommentDto(Comment comment);
+
+    List<CommentRespDto> toCommentDto(List<Comment> comments);
+
+    /**
+     * Tag
+     */
+    @Mapping(source = "workspace.id", target = "workspaceId")
+    TagRespDto toTagDto(Tag tag);
+
+    List<TagRespDto> toTagDto(List<Tag> tags);
+
 }

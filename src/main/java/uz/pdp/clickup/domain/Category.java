@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name", "project_id"}))
 public class Category extends AbsUUIDEntity {
     @Column(nullable = false)
     private String name;

@@ -37,9 +37,9 @@ public class Task extends AbsUUIDEntity {
     @Column
     private Timestamp startedDate;
 
-    private boolean startTimeHas;
+    private boolean startTimeHas = false;
 
-    private boolean dueTimeHas;
+    private boolean dueTimeHas = false;
 
     @Column
     private Timestamp dueDate;
@@ -49,4 +49,27 @@ public class Task extends AbsUUIDEntity {
 
     @Column
     private Timestamp activateDate;
+
+    public Task(String name, Status status, Category category, Priority priority, Timestamp startedDate, boolean startTimeHas, boolean dueTimeHas, Timestamp dueDate) {
+        this.name = name;
+        this.status = status;
+        this.category = category;
+        this.priority = priority;
+        this.startedDate = startedDate;
+        this.startTimeHas = startTimeHas;
+        this.dueTimeHas = dueTimeHas;
+        this.dueDate = dueDate;
+    }
+
+    public Task(String name, Priority priority, Task parent, Timestamp startedDate, boolean startTimeHas, boolean dueTimeHas, Timestamp dueDate, Long estimateTime, Timestamp activateDate) {
+        this.name = name;
+        this.priority = priority;
+        this.parent = parent;
+        this.startedDate = startedDate;
+        this.startTimeHas = startTimeHas;
+        this.dueTimeHas = dueTimeHas;
+        this.dueDate = dueDate;
+        this.estimateTime = estimateTime;
+        this.activateDate = activateDate;
+    }
 }

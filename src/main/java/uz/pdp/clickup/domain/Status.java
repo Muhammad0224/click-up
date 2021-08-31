@@ -15,6 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name", "space_id"}))
 public class Status extends AbsUUIDEntity {
     @Column(nullable = false)
     private String name;

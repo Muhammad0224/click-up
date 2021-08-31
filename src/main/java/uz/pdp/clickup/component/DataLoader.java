@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import uz.pdp.clickup.domain.ClickApps;
+import uz.pdp.clickup.domain.Priority;
 import uz.pdp.clickup.domain.View;
 import uz.pdp.clickup.repository.ClickAppsRepo;
+import uz.pdp.clickup.repository.PriorityRepo;
 import uz.pdp.clickup.repository.ViewRepo;
 
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ public class DataLoader implements CommandLineRunner {
     private final ViewRepo viewRepo;
 
     private final ClickAppsRepo clickAppsRepo;
+
+    private final PriorityRepo priorityRepo;
 
     @Value("${spring.datasource.initialization-mode}")
     private String initialMode;
@@ -47,6 +51,14 @@ public class DataLoader implements CommandLineRunner {
             views.add(new View("Timeline", null));
 
             viewRepo.saveAll(views);
+
+            List<Priority> priorities = new ArrayList<>();
+            priorities.add(new Priority("Urgent", null));
+            priorities.add(new Priority("High", null));
+            priorities.add(new Priority("Normal", null));
+            priorities.add(new Priority("Low", null));
+
+            priorityRepo.saveAll(priorities);
         }
     }
 }

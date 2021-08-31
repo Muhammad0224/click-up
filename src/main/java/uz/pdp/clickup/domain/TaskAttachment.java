@@ -22,5 +22,10 @@ public class TaskAttachment extends AbsUUIDEntity {
     private Attachment attachment;
 
     @Column
-    private boolean pinCoverImage;
+    private boolean pinCoverImage = false;
+
+    public TaskAttachment(Task task, Attachment attachment) {
+        this.task = task;
+        this.attachment = attachment;
+    }
 }
